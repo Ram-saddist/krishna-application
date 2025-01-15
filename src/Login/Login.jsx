@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
-
+import Swal from 'sweetalert2'
 export default function Login() {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
@@ -12,7 +12,10 @@ export default function Login() {
             .then((res)=>{
                 console.log(res)
                 if(res.status===200){
-                    alert("Login successful")
+                    Swal.fire({
+                        title: "Login successful!",
+                        icon: "success"
+                      });
                     localStorage.setItem("patientId",res.data.patientid)
                     navigate("/")
                 }
