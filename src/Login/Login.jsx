@@ -12,12 +12,20 @@ export default function Login() {
             .then((res)=>{
                 console.log(res)
                 if(res.status===200){
+                   
+                    if(res.data.isAdmin){
+                        localStorage.setItem("isAdmin","admin")
+                        navigate("/")
+                    }
+                    else{
+                        localStorage.setItem("isAdmin","patient")
+                        localStorage.setItem("patientId",res.data.patientid)
+                        navigate("/")
+                    }
                     Swal.fire({
                         title: "Login successful!",
                         icon: "success"
                       });
-                    localStorage.setItem("patientId",res.data.patientid)
-                    navigate("/")
                 }
             })
             .catch((error)=>{
@@ -37,7 +45,7 @@ export default function Login() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                        <input type="email" placeholder='ex:sivaram@gmail.com' className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=>setEmail(e.target.value)}/>
+                        <input type="text" placeholder='ex:sivaram@gmail.com' className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=>setEmail(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
